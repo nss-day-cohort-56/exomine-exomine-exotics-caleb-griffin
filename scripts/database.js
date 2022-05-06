@@ -28,7 +28,7 @@ const database = {
             id:5,
             name: 'Jake Sully',
             colonyId: 1,
-            IsActive: false
+            isActive: false
         }
     ],
     colonies: [

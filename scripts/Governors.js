@@ -21,11 +21,17 @@ export const Governors = () => {
     <select name="governors" id="governors">
         <option value="0" selected>Select a governor</option>`
 
-    // template for list option
-    governors.forEach(gov => html += `<option value="${gov.id}">${gov.name}</option>`)
 
+        governors.forEach(
+            (gov) => {
+            // checks if governor is active
+            if (gov.isActive) {
+                // template for list option
+                html += `<option value="${gov.id}">${gov.name}</option>`
+            }
+        }
+    )
     // closing tag
     html += `</select></section>`
-
     return html
 }
