@@ -1,4 +1,6 @@
 //import statements will go here
+import { Facilities } from "./Facilities.js"
+
 
 // HTML builder function that will be imported to main.js. Put everything in containers so we can apply flexbox and structure it like the wireframe later on.
 export const Exomine = () => {
@@ -11,7 +13,7 @@ export const Exomine = () => {
 
         <section class="selection-container">
             <h3>Choose governor function here</h3>
-            <h3>Choose facility function here</h3>
+            ${Facilities()}
         </section>
 
         <section class="colony-inv-container">
