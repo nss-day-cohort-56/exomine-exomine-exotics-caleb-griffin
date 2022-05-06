@@ -1,5 +1,5 @@
 const database = {
-    governers: [
+    governors: [
         {
             id: 1,
             name: 'Patricia Purdy',
@@ -155,8 +155,8 @@ export const getFacilities = () => {
     return database.facilities.map(f => ({ ...f }))
 }
 
-export const getGoverners = () => {
-    return database.governers.map(g => ({...g}))
+export const getGovernors = () => {
+    return database.governors.map(g => ({...g}))
 }
 
 export const getColonies = () => {
