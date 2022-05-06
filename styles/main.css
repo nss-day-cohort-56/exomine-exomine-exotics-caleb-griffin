@@ -1,0 +1,27 @@
+* {
+    border: solid 1px red;
+}
+
+.selection-colony-inv-flex-container {
+    display: flex;
+}
+
+.facility-inv-purchase-flex-container {
+    display: flex;
+}
+
+.selection-container {
+    width: 50%;
+}
+
+.colony-inv-container {
+    width: 50%;
+}
+
+.facility-inv-container {
+    width: 50%;
+}
+
+.cart-section {
+    width: 50%;
+}
