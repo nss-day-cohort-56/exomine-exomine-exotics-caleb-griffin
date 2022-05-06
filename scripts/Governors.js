@@ -16,8 +16,9 @@ const governors = getGovernors()
 // makes and exports 'choose a governor' dropdown
 export const Governors = () => {
     // opening tag
-    let html = `<select name="governors" id="governors">
-        <option value="0" selected>Choose a Governor...</option>`
+    let html = `<p>Choose governor function here</p>
+    <select name="governors" id="governors">
+        <option value="0" selected>Select a governor</option>`
 
     // template for list option
     governors.forEach(gov => html += `<option value="${gov.id}">${gov.name}</option>`)
