@@ -24,6 +24,12 @@ const database = {
             colonyId: 2,
             isActive: true 
         },
+        {
+            id:5,
+            name: 'Jake Sully',
+            colonyId: 1,
+            IsActive: false
+        }
     ],
     colonies: [
         {
@@ -60,46 +66,77 @@ const database = {
     facilities: [
         {
             id: 1,
-            name: 'Ganymede'
+            name: 'Ganymede',
+            isActive: true
         },
         {
             id: 2,
-            name: 'Io'
+            name: 'Io',
+            isActive: true
         },
         {
             id: 3,
-            name: 'Titan'
+            name: 'Titan',
+            isActive: true
         },
+        {
+            id: 4,
+            name: 'Pandora',
+            isActive: false
+        }
     ],
     colonyMineralJoins: [
         {
             id: 1,
             colonyId: 1,
             mineralId: 1,
+            tons: 7
         },
+        {
+            id: 2,
+            colonyId: 1,
+            mineralId: 2,
+            tons: 2
+        }
         
     ],
     mineralFacilityJoins: [
         {
             id: 1,
             mineralId: 1,
-            facilityId: 1
+            facilityId: 1,
+            tons: 18
         },
         {
             id: 2,
             mineralId: 2,
-            facilityId: 1
+            facilityId: 1,
+            tons: 4
         },
         {
             id: 3,
             mineralId: 3,
-            facilityId: 2
+            facilityId: 2,
+            tons: 92
         },
         {
             id: 4,
             mineralId: 4,
-            facilityId: 3
+            facilityId: 3,
+            tons: 47
         },
+        {
+            id: 5,
+            mineralId: 1,
+            facilityId: 2,
+            tons: 3
+        },
+        {
+            id: 6,
+            mineralId: 2,
+            facilityId: 3,
+            tons: 4
+        }
     ],
     transientState: [
         {
