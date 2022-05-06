@@ -30,10 +30,12 @@ document.addEventListener(
     "change",
     (changeEvent) => {
         if (changeEvent.target.id === "governors") {
+            const facilitySelection = document.getElementById("facility")
             if (changeEvent.target.value > 0) {
-                document.getElementById("facility").disabled = false;
+                facilitySelection.disabled = false;
             } else {
-                document.getElementById("facility").disabled = true;
+                facilitySelection.disabled = true;
+                facilitySelection.selectedIndex = 0;
             }
         }
     }
