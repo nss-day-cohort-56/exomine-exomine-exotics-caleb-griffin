@@ -8,7 +8,7 @@ const facilities = getFacilities()
 export const Facilities = () => {
     let html = `<section class="facility-selection-section">
     <p>Choose a facility</p>
-    <select id='facility'>
+    <select id='facility' disabled>
     <option value='0'>Select a facility</option>`
 
     //use map array method to iterate through facilities, create dropdown option for each facility, and output to an array
@@ -25,4 +25,19 @@ export const Facilities = () => {
 
     return html
 }
+
+document.addEventListener(
+    "change",
+    (changeEvent) => {
+        if (changeEvent.target.id === "governors") {
+            const facilitySelection = document.getElementById("facility")
+            if (changeEvent.target.value > 0) {
+                facilitySelection.disabled = false;
+            } else {
+                facilitySelection.disabled = true;
+                facilitySelection.selectedIndex = 0;
+            }
+        }
+    }
+)
 
