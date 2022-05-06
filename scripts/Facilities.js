@@ -14,7 +14,9 @@ export const Facilities = () => {
     //use map array method to iterate through facilities, create dropdown option for each facility, and output to an array
     const facilityArray = facilities.map(
         (facility) => {
-            return `<option value="${facility.id}">${facility.name}</option>`
+            if (facility.isActive === true) {
+                return `<option value="${facility.id}">${facility.name}</option>`
+            }
         }
     )
     //use join method to combine all strings in facilityArray into one string
