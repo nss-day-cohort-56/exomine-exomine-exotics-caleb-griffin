@@ -13,6 +13,10 @@ import { getGovernors } from "./database.js"
 
 const governors = getGovernors()
 
+document.addEventListener('change', (event) => {
+    
+})
+
 // makes and exports 'choose a governor' dropdown
 export const Governors = () => {
     // opening tag
