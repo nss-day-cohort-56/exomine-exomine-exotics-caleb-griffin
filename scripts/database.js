@@ -4,28 +4,28 @@ const database = {
             id: 1,
             name: 'Patricia Purdy',
             colonyId: 2,
-            isActive: true 
+            isActive: true
         },
         {
             id: 2,
             name: 'Katrina Bahringer',
             colonyId: 3,
-            isActive: true 
+            isActive: true
         },
         {
             id: 3,
             name: 'Lala Wolff',
             colonyId: 1,
-            isActive: true 
+            isActive: true
         },
         {
             id: 4,
             name: 'Damon Hartmann',
             colonyId: 2,
-            isActive: true 
+            isActive: true
         },
         {
-            id:5,
+            id: 5,
             name: 'Jake Sully',
             colonyId: 1,
             isActive: false
@@ -98,7 +98,7 @@ const database = {
             mineralId: 2,
             tons: 2
         }
-        
+
     ],
     mineralFacilityJoins: [
         {
@@ -138,12 +138,12 @@ const database = {
             tons: 4
         }
     ],
-    transientState: [
+    transientState: 
         {
             id: 0,
 
         }
-    ]
+    
 }
 
 export const setFacility = (facilityId) => {
@@ -156,29 +156,40 @@ export const getFacilities = () => {
 }
 
 export const getGovernors = () => {
-    return database.governors.map(g => ({...g}))
+    return database.governors.map(g => ({ ...g }))
 }
 
 export const getColonies = () => {
-    return database.colonies.map(c => ({...c}))
+    return database.colonies.map(c => ({ ...c }))
 }
 
 export const getMinerals = () => {
-    return database.minerals.map(m => ({...m}))
+    return database.minerals.map(m => ({ ...m }))
 }
 
 export const getColonyMineralJoins = () => {
-    return database.colonyMineralJoins.map(j => ({...j}))
+    return database.colonyMineralJoins.map(j => ({ ...j }))
 }
 
 export const getMineralFacilityJoins = () => {
-    return database.mineralFacilityJoins.map(j => ({...j}))
+    return database.mineralFacilityJoins.map(j => ({ ...j }))
 }
 
 export const purchaseMineral = () => {
 
     // Broadcast custom event to entire documement so that the
     // application can re-render and update state
+    document.dispatchEvent(new CustomEvent("stateChanged"))
+}
+
+export const setGovernor = (governorId) => {
+    database.transientState.selectedGovernor = governorId
+    if (governorId > 0) {
+        database.transientState.isGovernorSelected = true
+    } else {
+        database.transientState.isGovernorSelected = false
+    }
+    console.log(database.transientState.selectedGovernor, database.transientState.isGovernorSelected)
     document.dispatchEvent(new CustomEvent("stateChanged"))
 }
 
