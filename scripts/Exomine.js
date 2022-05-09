@@ -17,7 +17,7 @@ export const Exomine = () => {
         </section>
 
         <section class="colony-inv-container">
-            <h2>Colony minerals function here</h2>
+            <h2>Colony Minerals</h2>
         </section>
 
     </section>
