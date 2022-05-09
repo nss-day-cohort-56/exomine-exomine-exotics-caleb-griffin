@@ -1,5 +1,5 @@
 // import facility data
-import { getFacilities } from "./database.js"
+import { getFacilities, setFacility } from "./database.js"
 
 //assign facility data to a variable
 const facilities = getFacilities()
@@ -40,4 +40,3 @@ document.addEventListener(
         }
     }
 )
-
