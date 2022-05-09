@@ -1,4 +1,5 @@
-import { getColonies, getColonyMineralJoins, getGovernors } from "./database.js"
+import { getColonies, getGovernors } from "./database.js"
+import { CurrentColonyMinerals } from "./Minerals.js"
 
 // assign imported arrays to variables
 const governors = getGovernors()
@@ -12,9 +13,8 @@ document.addEventListener('change', (event) => {
         // finds colongy for selected governor
         const selectedColony = colonies.find(col => col.id === selectedGovernor.colonyId)
         // updates HTML to show colony name 
-        document.querySelector('.colony-inv-container').innerHTML = `<h2>${selectedColony.name} Minerals</h2>`
+        document.querySelector('.colony-inv-container').innerHTML = `<h2>${selectedColony.name} Minerals</h2> ${CurrentColonyMinerals(selectedColony)}`
     }
-
 })
 
 // makes and exports 'choose a governor' dropdown
