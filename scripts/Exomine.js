@@ -1,6 +1,7 @@
 //import statements will go here
 import { Facilities } from "./Facilities.js"
 import { Governors } from "./Governors.js"
+import { FacilityInventory } from "./FacilityInventory.js"
 
 // HTML builder function that will be imported to main.js. Put everything in containers so we can apply flexbox and structure it like the wireframe later on.
 export const Exomine = () => {
@@ -25,7 +26,7 @@ export const Exomine = () => {
     <section class="facility-inv-purchase-flex-container">
 
         <section class="facility-inv-container">
-            <h2>Facility inventory function here</h2>
+            ${FacilityInventory()}
         </section>
 
         <section class="cart-section">

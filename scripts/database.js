@@ -138,18 +138,18 @@ const database = {
             tons: 4
         }
     ],
-    transientState: [
+    transientState: 
         {
             id: 0,
 
         }
-    ]
 }
 
 export const setFacility = (facilityId) => {
     database.transientState.selectedFacility = facilityId
     document.dispatchEvent(new CustomEvent("stateChanged"))
 }
+
 
 export const getFacilities = () => {
     return database.facilities.map(f => ({ ...f }))
@@ -171,8 +171,13 @@ export const getColonyMineralJoins = () => {
     return database.colonyMineralJoins.map(j => ({...j}))
 }
 
+
 export const getMineralFacilityJoins = () => {
     return database.mineralFacilityJoins.map(j => ({...j}))
+}
+
+export const getTransientState = () => {
+    return database.transientState
 }
 
 export const purchaseMineral = () => {
