@@ -1,17 +1,21 @@
-import { getGovernors } from "./database.js"
+import { getColonies, getColonyMineralJoins, getGovernors } from "./database.js"
 
-/* 
-*** To Do ***
-
-[x] import 'governors' array from 'database.js'
-
-[x] make html dropdown list using data from 'governors' array
-
-[x] export dropdown list to 'Exomine.js'
-
-*/
-
+// assign imported arrays to variables
 const governors = getGovernors()
+const colonies = getColonies()
+
+// event listener for governor selection
+document.addEventListener('change', (event) => {
+    if (event.target.name === "governors") {
+        // finds selected governor
+        const selectedGovernor = governors.find(gov => gov.id === parseInt(event.target.value))
+        // finds colongy for selected governor
+        const selectedColony = colonies.find(col => col.id === selectedGovernor.colonyId)
+        // updates HTML to show colony name 
+        document.querySelector('.colony-inv-container').innerHTML = `<h2>${selectedColony.name} Minerals</h2>`
+    }
+
+})
 
 // makes and exports 'choose a governor' dropdown
 export const Governors = () => {
