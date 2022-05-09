@@ -1,11 +1,12 @@
 // import facility data
-import { getFacilities, setFacility } from "./database.js"
+import { getFacilities, setFacility, getTransientState } from "./database.js"
 
 //assign facility data to a variable
 const facilities = getFacilities()
 
 // create function to export to Exomine that will build html for facility dropdown box 
 export const Facilities = () => {
+    let transientState = getTransientState()
     let html = `<section class="facility-selection-section">
     <p>Choose a facility</p>
     <select id='facility' disabled>
@@ -14,8 +15,14 @@ export const Facilities = () => {
     //use map array method to iterate through facilities, create dropdown option for each facility, and output to an array
     const facilityArray = facilities.map(
         (facility) => {
+            // check to see if facility is active
             if (facility.isActive) {
-                return `<option value="${facility.id}">${facility.name}</option>`
+                // check to see if current facility is what was selected on transient state - make that one "selected" for when html generates.
+                if (facility.id === transientState.selectedFacility) {
+                    return `<option value="${facility.id}" selected>${facility.name}</option>`
+                } else {
+                    return `<option value="${facility.id}">${facility.name}</option>`
+                }
             }
         }
     )
@@ -37,6 +44,15 @@ document.addEventListener(
                 facilitySelection.disabled = true;
                 facilitySelection.selectedIndex = 0;
             }
+        }
+    }
+)
+
+document.addEventListener(
+    "change",
+    (changeEvent) => {
+        if (changeEvent.target.id === "facility") {
+            setFacility(parseInt(changeEvent.target.value))
         }
     }
 )

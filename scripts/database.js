@@ -138,12 +138,11 @@ const database = {
             tons: 4
         }
     ],
-    transientState: [
+    transientState: 
         {
             id: 0,
 
         }
-    ]
 }
 
 export const setFacility = (facilityId) => {
@@ -178,7 +177,7 @@ export const getMineralFacilityJoins = () => {
 }
 
 export const getTransientState = () => {
-    return database.transientState.map(j => ({...j}))
+    return database.transientState
 }
 
 export const purchaseMineral = () => {
