@@ -143,7 +143,6 @@ const database = {
             id: 0,
 
         }
-    
 }
 
 export const setFacility = (facilityId) => {
@@ -173,6 +172,10 @@ export const getColonyMineralJoins = () => {
 
 export const getMineralFacilityJoins = () => {
     return database.mineralFacilityJoins.map(j => ({ ...j }))
+}
+
+export const getTransientState = () => {
+    return database.transientState
 }
 
 export const purchaseMineral = () => {
