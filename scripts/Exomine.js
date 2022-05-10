@@ -2,6 +2,7 @@
 import { Facilities } from "./Facilities.js"
 import { Governors } from "./Governors.js"
 import { FacilityInventory } from "./FacilityInventory.js"
+import { Minerals } from "./Minerals.js"
 
 // HTML builder function that will be imported to main.js. Put everything in containers so we can apply flexbox and structure it like the wireframe later on.
 export const Exomine = () => {
@@ -18,7 +19,7 @@ export const Exomine = () => {
         </section>
 
         <section class="colony-inv-container">
-            <h2>Colony Minerals</h2>
+            ${Minerals()}
         </section>
 
     </section>

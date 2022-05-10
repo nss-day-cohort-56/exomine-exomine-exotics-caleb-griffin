@@ -175,7 +175,7 @@ export const getMineralFacilityJoins = () => {
 }
 
 export const getTransientState = () => {
-    return database.transientState
+    return {...database.transientState} 
 }
 
 export const purchaseMineral = () => {
@@ -187,12 +187,6 @@ export const purchaseMineral = () => {
 
 export const setGovernor = (governorId) => {
     database.transientState.selectedGovernor = governorId
-    if (governorId > 0) {
-        database.transientState.isGovernorSelected = true
-    } else {
-        database.transientState.isGovernorSelected = false
-    }
-    console.log(database.transientState.selectedGovernor, database.transientState.isGovernorSelected)
     document.dispatchEvent(new CustomEvent("stateChanged"))
 }
 

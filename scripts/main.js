@@ -19,8 +19,4 @@ const renderAllHTML = () => {
 // invoke renderAllHTML function.
 renderAllHTML()
 
-document.addEventListener("stateChanged", event => {
-    console.log("State of data has changed. Regenerating Html...")
-    renderAllHTML()
-})
 
