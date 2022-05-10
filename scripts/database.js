@@ -150,6 +150,11 @@ export const setFacility = (facilityId) => {
     document.dispatchEvent(new CustomEvent("stateChanged"))
 }
 
+export const setFacilityMineral = (facilityMineralId) => {
+    database.transientState.selectedFacilityMineral = facilityMineralId
+    document.dispatchEvent(new CustomEvent("stateChanged"))
+}
+
 export const getFacilities = () => {
     return database.facilities.map(f => ({ ...f }))
 }
