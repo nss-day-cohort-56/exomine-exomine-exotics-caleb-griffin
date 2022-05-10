@@ -136,6 +136,12 @@ const database = {
             mineralId: 2,
             facilityId: 3,
             tons: 4
+        },
+        {
+            id: 7,
+            mineralId: 1,
+            facilityId: 3,
+            tons: 0
         }
     ],
     transientState: 
