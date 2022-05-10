@@ -1,5 +1,5 @@
 // import all data necessary
-import { getMineralFacilityJoins, getFacilities, getMinerals, getTransientState } from "./database.js"
+import { getMineralFacilityJoins, getFacilities, getMinerals, getTransientState, setFacilityMineral } from "./database.js"
 
 // assign data to variables
 
@@ -25,7 +25,7 @@ export const FacilityInventory = () => {
         // find out what facility was selected
         let foundFacility = findFacility(transientState)
         //create html title based on what facility was selected
-        html += `<h2>${foundFacility} Inventory`
+        html += `<h2>${foundFacility} Inventory</h2>`
         //start unordered list of radio buttons
         html += "<ul class='inventory-button-list'>"
         //iterate through all mineral facility joins. 
@@ -34,7 +34,7 @@ export const FacilityInventory = () => {
                 //Find which mineralFacilityJoin objects have facilityId's equal to the facility Id on the transient state.
                 if (facilityMineral.facilityId === transientState.selectedFacility) {
                     //if IDs match, feed data into radio button builder function
-                    return radioButtonBuilder(facilityMineral)
+                    return radioButtonBuilder(facilityMineral,transientState)
                 }
             }
         )
@@ -46,6 +46,7 @@ export const FacilityInventory = () => {
     return html
 }
 
+// This function finds the name of the mineral in a facilityMineral join object - called within radio button builder function
 const findMineral = (facilityMineralObj) => {
     for (const mineral of minerals) {
         if (facilityMineralObj.mineralId === mineral.id) {
@@ -54,6 +55,7 @@ const findMineral = (facilityMineralObj) => {
     }
 }
 
+// This function finds the name of the facility in a facilityMineral join object - called within larger FacilityInventory() function to correctly populate <h2> section title
 const findFacility = (transientStateObj) => {
     for (const facility of facilities) {
         if (transientStateObj.selectedFacility === facility.id) {
@@ -62,11 +64,26 @@ const findFacility = (transientStateObj) => {
     }
 }
 
-const radioButtonBuilder = (facilityMineral) => {
+//this function creates a radio button for each type of mineral within selected facility
+const radioButtonBuilder = (facilityMineral,transientStateObj) => {
     let foundMineral = findMineral(facilityMineral)
-    return `<li>
-        <input type="radio" name="inventory" value="${facilityMineral.id}" />${facilityMineral.tons} tons of ${foundMineral}
-    </li>`
+    if (facilityMineral.id === transientStateObj.selectedFacilityMineral) {
+        return `<li>
+            <input type="radio" name="inventory" value="${facilityMineral.id}" checked/>${facilityMineral.tons} tons of ${foundMineral}
+        </li>`
+    } else {
+        return `<li>
+            <input type="radio" name="inventory" value="${facilityMineral.id}"/>${facilityMineral.tons} tons of ${foundMineral}
+        </li>`
+    }
 }
 
+document.addEventListener(
+    "change",
+    (changeEvent) => {
+        if (changeEvent.target.name === "inventory") {
+            setFacilityMineral(parseInt(changeEvent.target.value))
+        }
+    }
+)
 
