@@ -9,7 +9,7 @@ export const Facilities = () => {
     let transientState = getTransientState()
     let html = `<section class="facility-selection-section">
     <p>Choose a facility</p>
-    <select id='facility' disabled>
+    <select id='facility'>
     <option value='0'>Select a facility</option>`
 
     //use map array method to iterate through facilities, create dropdown option for each facility, and output to an array
@@ -18,18 +18,19 @@ export const Facilities = () => {
             // check to see if facility is active
             if (facility.isActive) {
                 // check to see if current facility is what was selected on transient state - make that one "selected" for when html generates.
-                if (facility.id === transientState.selectedFacility) {
-                    return `<option value="${facility.id}" selected>${facility.name}</option>`
-                } else {
-                    return `<option value="${facility.id}">${facility.name}</option>`
-                }
+                return optionHtmlBuilder(facility,transientState)
             }
         }
     )
+
+
     //use join method to combine all strings in facilityArray into one string
     html += facilityArray.join(" ")
     html += "</select></section>"
 
+    /*
+    disableFacilities(transientState)
+    */
     return html
 }
 
@@ -56,3 +57,24 @@ document.addEventListener(
         }
     }
 )
+
+/*
+const disableFacilities = (transientStateObj) => {
+    const facilitySelection = document.getElementById("facility")
+    if (transientStateObj.selectedGovernor === undefined || transientStateObj.selectedGovernor === 0) {
+        facilitySelection.disabled = true
+        facilitySelection.selectedIndex = 0
+    } else {
+        facilitySelection.disabled = false
+    }
+}
+
+*/
+
+const optionHtmlBuilder = (facility, transientStateObj) => {
+    if (facility.id === transientStateObj.selectedFacility) {
+        return `<option value="${facility.id}" selected>${facility.name}</option>`
+    } else {
+        return `<option value="${facility.id}">${facility.name}</option>`
+    }
+}
