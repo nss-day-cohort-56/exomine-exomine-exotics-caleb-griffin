@@ -31,7 +31,7 @@ export const Exomine = () => {
         </section>
 
         <section class="cart-section">
-            <h2>Cart function here</h2>
+            
             <button type="button" id="purchaseButton">Purchase Mineral</button>
         </section>
 
