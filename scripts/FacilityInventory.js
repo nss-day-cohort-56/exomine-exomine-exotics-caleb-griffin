@@ -1,5 +1,5 @@
 // import all data necessary
-import { getMineralFacilityJoins, getFacilities, getMinerals, getTransientState, setFacilityMineral } from "./database.js"
+import { getMineralFacilityJoins, getFacilities, getMinerals, getTransientState, setFacilityMineral, setMineral } from "./database.js"
 
 // assign data to variables
 
@@ -82,11 +82,12 @@ document.addEventListener(
     "change",
     (changeEvent) => {
         if (changeEvent.target.name === "inventory") {
-            setFacilityMineral(parseInt(changeEvent.target.value))
+            const foundMineralFacilityJoin = mineralFacilityJoins.find(mineralFacility => mineralFacility.id === parseInt(changeEvent.target.value))
+            setFacilityMineral(foundMineralFacilityJoin.id)
+            setMineral(foundMineralFacilityJoin.mineralId)
         }
     }
 )
-//event listener to add selected minerals to cart 
 
 document.addEventListener(
     "click",
@@ -103,26 +104,22 @@ export const showCart = () => {
 
 
     let transientState = getTransientState()
-    //let foundMineral = findMineral(transientState)
+
     let foundFacility = findFacility(transientState)
 
-    /* for (const mineral of minerals){
-     if (mineral.id === transientState.selectedFacilityMineral) {
-         return mineral.name
-     }
- */
-if (transientState.selectedFacilityMineral === 0 || transientState.selectedFacilityMineral === undefined){
-    html += `</li> </ul>`
-}
-else {
 
-    let selectedMineral = minerals.find(mineral => mineral.id === transientState.selectedMineral)
+    if (transientState.selectedFacilityMineral === 0 || transientState.selectedFacilityMineral === undefined) {
+        html += `</li> </ul>`
+    }
+    else {
 
-    console.log(`1 ton of ${selectedMineral.name} from ${foundFacility} `)
-    console.log(transientState)
+        let selectedMineral = minerals.find(mineral => mineral.id === transientState.selectedFacilityMineral)
 
-    html += `1 ton of ${selectedMineral.name} from ${foundFacility} </li> </ul>`
-}
+        console.log(`1 ton of ${selectedMineral.name} from ${foundFacility} `)
+        console.log(transientState)
+
+        html += `1 ton of ${selectedMineral.name} from ${foundFacility} </li> </ul>`
+    }
     return html
 
 }
