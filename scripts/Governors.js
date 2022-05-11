@@ -1,4 +1,4 @@
-import { getColonies, getGovernors, getTransientState, setGovernor, setFacility, setFacilityMineral, setColony } from "./database.js"
+import { getColonies, getGovernors, getTransientState, setGovernor, setFacility, setFacilityMineral, setColony, setMineral } from "./database.js"
 // import { CurrentColonyMinerals } from "./Minerals.js"
 
 // assign imported arrays to variables
