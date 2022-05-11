@@ -32,7 +32,7 @@ export const FacilityInventory = () => {
         const facilityInventoryArray = mineralFacilityJoins.map(
             (facilityMineral) => {
                 //Find which mineralFacilityJoin objects have facilityId's equal to the facility Id on the transient state.
-                if (facilityMineral.facilityId === transientState.selectedFacility) {
+                if (facilityMineral.facilityId === transientState.selectedFacility && facilityMineral.tons > 0) {
                     //if IDs match, feed data into radio button builder function
                     return radioButtonBuilder(facilityMineral, transientState)
                 }

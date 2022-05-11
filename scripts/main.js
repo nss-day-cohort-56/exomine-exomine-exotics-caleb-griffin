@@ -1,9 +1,11 @@
 import { Exomine } from "./Exomine.js"
+import {getTransientState} from "./database.js"
 
 document.addEventListener(
     "stateChanged",
     (stateChanged) => {
         console.log("State Changed! Rerendering html...")
+        console.log(getTransientState())
         renderAllHTML()
     }
 )
@@ -18,3 +20,5 @@ const renderAllHTML = () => {
 
 // invoke renderAllHTML function.
 renderAllHTML()
+
+
