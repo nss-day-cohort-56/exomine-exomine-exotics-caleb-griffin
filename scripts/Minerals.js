@@ -36,15 +36,3 @@ export const Minerals = () => {
     }
     return html
 }
-
-
-
-
-/*
-    Goal: Swap the value of the following two variables. You cannot define 
-          any more variables. Use only these two.
-*/
-
-let firstNumber = 42
-let secondNumber = 11
-
