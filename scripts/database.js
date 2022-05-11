@@ -136,6 +136,12 @@ const database = {
             mineralId: 2,
             facilityId: 3,
             tons: 4
+        },
+        {
+            id: 7,
+            mineralId: 1,
+            facilityId: 3,
+            tons: 0
         }
     ],
     transientState: 
@@ -192,6 +198,11 @@ export const purchaseMineral = () => {
 
 export const setGovernor = (governorId) => {
     database.transientState.selectedGovernor = governorId
+    document.dispatchEvent(new CustomEvent("stateChanged"))
+}
+
+export const setColony = (colonyId) => {
+    database.transientState.selectedColony = colonyId
     document.dispatchEvent(new CustomEvent("stateChanged"))
 }
 
