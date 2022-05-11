@@ -3,11 +3,12 @@ import { getMineralFacilityJoins, getFacilities, getMinerals, getTransientState,
 
 // assign data to variables
 
-const mineralFacilityJoins = getMineralFacilityJoins()
+let mineralFacilityJoins = getMineralFacilityJoins()
 const facilities = getFacilities()
 const minerals = getMinerals()
 
 export const FacilityInventory = () => {
+    mineralFacilityJoins = getMineralFacilityJoins()
     // get transient state whenever function is called
     let transientState = getTransientState()
 

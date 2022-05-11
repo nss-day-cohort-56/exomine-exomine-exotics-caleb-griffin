@@ -3,6 +3,7 @@ import { Facilities } from "./Facilities.js"
 import { Governors } from "./Governors.js"
 import { FacilityInventory, showCart } from "./FacilityInventory.js"
 import { Minerals } from "./Minerals.js"
+import { purchaseMineral } from "./database.js"
 
 // HTML builder function that will be imported to main.js. Put everything in containers so we can apply flexbox and structure it like the wireframe later on.
 export const Exomine = () => {
@@ -38,3 +39,12 @@ export const Exomine = () => {
     </section>
     `
 }
+
+document.addEventListener(
+    "click",
+    (clickEvent) => {
+        if (clickEvent.target.id === "purchaseButton") {
+            purchaseMineral()
+        }
+    }
+)
