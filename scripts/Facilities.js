@@ -1,5 +1,5 @@
 // import facility data
-import { getFacilities, setFacility, getTransientState, setFacilityMineral } from "./database.js"
+import { getFacilities, setFacility, getTransientState, setFacilityMineral, setMineral } from "./database.js"
 
 //assign facility data to a variable
 const facilities = getFacilities()
@@ -33,6 +33,7 @@ document.addEventListener(
         if (changeEvent.target.id === "facility") {
             setFacility(parseInt(changeEvent.target.value))
             setFacilityMineral(0)
+            setMineral(0)
         }
     }
 )

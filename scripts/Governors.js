@@ -1,4 +1,4 @@
-import { getColonies, getGovernors, getTransientState, setGovernor, setFacility, setFacilityMineral } from "./database.js"
+import { getColonies, getGovernors, getTransientState, setGovernor, setFacility, setFacilityMineral, setMineral } from "./database.js"
 // import { CurrentColonyMinerals } from "./Minerals.js"
 
 // assign imported arrays to variables
@@ -16,6 +16,7 @@ document.addEventListener('change', (event) => {
             // reset selectedfacility and selectedFacilityMineral to 0
             setFacility(0)
             setFacilityMineral(0)
+            setMineral(0)
         }
         // update transient state
         setGovernor(govId)
