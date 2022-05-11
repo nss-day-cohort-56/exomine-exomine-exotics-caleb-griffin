@@ -103,7 +103,7 @@ export const showCart = () => {
 
 
     let transientState = getTransientState()
-    let foundMineral = findMineral(transientState)
+    //let foundMineral = findMineral(transientState)
     let foundFacility = findFacility(transientState)
 
     /* for (const mineral of minerals){
@@ -116,7 +116,7 @@ if (transientState.selectedFacilityMineral === 0 || transientState.selectedFacil
 }
 else {
 
-    let selectedMineral = minerals.find(mineral => mineral.id === transientState.selectedFacilityMineral)
+    let selectedMineral = minerals.find(mineral => mineral.id === transientState.selectedMineral)
 
     console.log(`1 ton of ${selectedMineral.name} from ${foundFacility} `)
     console.log(transientState)
