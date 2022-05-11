@@ -194,25 +194,49 @@ export const purchaseMineral = () => {
     //This function will be called when purchase button is selected - event listener will be added to Exomine.js to look out for this
         // Event listener will have an if statement that makes sure that ALL NECESSARY SELECTIONS have been made prior to executing this function - otherwise, it will return an error message.
     
-    //Function will check to see if an object within colony mineral joins exists that has colony id and mineral Id that matches mineral and colony within transient state
-        // currently transient state does not have functionality to have colonyID and mineralID, only governorID and selectedFacilityMineralId
+    /*
+    1. get transient state
+    2. use .find to see if any objects in colonyMineralJoins have matching colonyId and mineralId to selectedColony and selectedMineral in transient state - assign to a let variable
+    3. if -> new variable is undefined or null, create new object
+        4. newColonyMineralObject = {
+            mineralId: transientState.selectedMineral,
+            colonyId: transientState.selectedColony,
+            tons: 0
+        }
+        5. let lastIndex = database.colonyMineralJoins.length - 1
+        6. newColonyMineralObject.id = database.colonyMineralJoins[lastIndex].id + 1
+        7. push new object to colonyMineralJoins
+        8. run line 2 again to reassign variable 
+    9. newObjectVariable.tons += 1
+    10. use .find to find facilityMineralJoin object that has matching selectedFacilityMineral id in transient state, assign to a variable
+    11. foundFacilityMineralJoin.tons - 1
+    12. transientState (whatever its called ) = {}
+    13. trigger stateChange event
+    */
 
-    // IF object does exist with this mineral Id and colony Id
-        // increase tons in colonyMineralJoin by 1
-        // decrement tons in facilityMineralJoin by 1
-        // reset transient state
+    let transientState = {...database.transientState}
+    let foundColonyMineralJoin = database.colonyMineralJoins.find( colonyMineral => colonyMineral.colonyId === transientState.selectedColony && colonyMineral.mineralId === transientState.selectedMineral)
+    if (foundColonyMineralJoin === null || foundColonyMineralJoin === undefined) {
+        const newColonyMineralObject = {
+            mineralId: transientState.selectedMineral,
+            colonyId: transientState.selectedColony,
+            tons: 0
+        }
 
-    // Else....
-        //need to create a new object!
-            // newObject.colonyID = transientState.selectedColony
-            // newObject.mineralID = transientState.selectedMineral
-            // use colonyMineralJoins.length to grab the last object and find its Id
-            // newObject.tons = 1
-        //
+        const lastIndex = database.colonyMineralJoins.length - 1
+        newColonyMineralObject.id = database.colonyMineralJoins[lastIndex].id + 1
 
+        database.colonyMineralJoins.push(newColonyMineralObject)
 
-    // Broadcast custom event to entire documement so that the
-    // application can re-render and update state
+        foundColonyMineralJoin = database.colonyMineralJoins.find( colonyMineral => colonyMineral.colonyId === transientState.selectedColony && colonyMineral.mineralId === transientState.selectedMineral)
+    }
+    foundColonyMineralJoin.tons += 1
+    let foundFacilityMineralJoin = database.mineralFacilityJoins.find( facilityMineral => facilityMineral.id === transientState.selectedFacilityMineral)
+    foundFacilityMineralJoin.tons -= 1
+
+    //database.transientState = {}
+    setFacilityMineral(0)
+    setMineral(0)
     document.dispatchEvent(new CustomEvent("stateChanged"))
 }
 
