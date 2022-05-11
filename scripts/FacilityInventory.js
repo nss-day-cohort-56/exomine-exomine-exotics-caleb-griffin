@@ -1,5 +1,5 @@
 // import all data necessary
-import { getMineralFacilityJoins, getFacilities, getMinerals, getTransientState, setFacilityMineral } from "./database.js"
+import { getMineralFacilityJoins, getFacilities, getMinerals, getTransientState, setFacilityMineral, setMineral } from "./database.js"
 
 // assign data to variables
 
@@ -82,7 +82,9 @@ document.addEventListener(
     "change",
     (changeEvent) => {
         if (changeEvent.target.name === "inventory") {
-            setFacilityMineral(parseInt(changeEvent.target.value))
+            const foundMineralFacilityJoin = mineralFacilityJoins.find( mineralFacility => mineralFacility.id === parseInt(changeEvent.target.value))
+            setFacilityMineral(foundMineralFacilityJoin.id)
+            setMineral(foundMineralFacilityJoin.mineralId)
         }
     }
 )

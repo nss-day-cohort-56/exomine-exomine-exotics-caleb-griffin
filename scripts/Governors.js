@@ -1,4 +1,4 @@
-import { getColonies, getGovernors, getTransientState, setGovernor, setFacility, setFacilityMineral, setColony } from "./database.js"
+import { getColonies, getGovernors, getTransientState, setGovernor, setFacility, setFacilityMineral, setColony, setMineral } from "./database.js"
 // import { CurrentColonyMinerals } from "./Minerals.js"
 
 // assign imported arrays to variables
@@ -13,9 +13,10 @@ document.addEventListener('change', (event) => {
         const gov = governors.find(gov => gov.id === govId)
         // check to see if govId is 0 - this means governor has been deselected.
         if (govId === 0) {
-            // reset selectedfacility to 0
+            // reset selectedfacility and selectedFacilityMineral to 0
             setFacility(0)
             setFacilityMineral(0)
+            setMineral(0)
             setGovernor(govId)
             setColony(undefined)
         } else {
