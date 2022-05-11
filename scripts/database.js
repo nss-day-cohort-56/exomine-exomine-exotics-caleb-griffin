@@ -235,7 +235,8 @@ export const purchaseMineral = () => {
     foundFacilityMineralJoin.tons -= 1
 
     //database.transientState = {}
-
+    setFacilityMineral(0)
+    setMineral(0)
     document.dispatchEvent(new CustomEvent("stateChanged"))
 }
 
