@@ -100,8 +100,8 @@ document.addEventListener(
 )
 export const showCart = () => {
 
-    let html = `<ul class="cart-section">
-                 <li class="cart-section">`
+    let html = `<ul class="cart-section-list">
+                 <li class="list-item">`
 
 
     let transientState = getTransientState()
