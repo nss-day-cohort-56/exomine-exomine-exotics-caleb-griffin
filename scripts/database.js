@@ -191,6 +191,26 @@ export const getTransientState = () => {
 
 export const purchaseMineral = () => {
 
+    //This function will be called when purchase button is selected - event listener will be added to Exomine.js to look out for this
+        // Event listener will have an if statement that makes sure that ALL NECESSARY SELECTIONS have been made prior to executing this function - otherwise, it will return an error message.
+    
+    //Function will check to see if an object within colony mineral joins exists that has colony id and mineral Id that matches mineral and colony within transient state
+        // currently transient state does not have functionality to have colonyID and mineralID, only governorID and selectedFacilityMineralId
+
+    // IF object does exist with this mineral Id and colony Id
+        // increase tons in colonyMineralJoin by 1
+        // decrement tons in facilityMineralJoin by 1
+        // reset transient state
+
+    // Else....
+        //need to create a new object!
+            // newObject.colonyID = transientState.selectedColony
+            // newObject.mineralID = transientState.selectedMineral
+            // use colonyMineralJoins.length to grab the last object and find its Id
+            // newObject.tons = 1
+        //
+
+
     // Broadcast custom event to entire documement so that the
     // application can re-render and update state
     document.dispatchEvent(new CustomEvent("stateChanged"))
@@ -200,4 +220,10 @@ export const setGovernor = (governorId) => {
     database.transientState.selectedGovernor = governorId
     document.dispatchEvent(new CustomEvent("stateChanged"))
 }
+
+export const setMineral = (mineralId) => {
+    database.transientState.selectedMineral = mineralId
+    document.dispatchEvent(new CustomEvent("stateChanged"))
+}
+
 

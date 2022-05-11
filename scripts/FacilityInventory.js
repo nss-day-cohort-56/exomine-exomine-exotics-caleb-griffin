@@ -1,5 +1,5 @@
 // import all data necessary
-import { getMineralFacilityJoins, getFacilities, getMinerals, getTransientState, setFacilityMineral } from "./database.js"
+import { getMineralFacilityJoins, getFacilities, getMinerals, getTransientState, setFacilityMineral, setMineral } from "./database.js"
 
 // assign data to variables
 
@@ -18,8 +18,8 @@ export const FacilityInventory = () => {
     if (transientState.selectedFacility === undefined || transientState.selectedFacility === 0) {
         // If thats the case, print out generic header
         html += "<h2>Facility inventory</h2>"
-
-        // if a facility HAS been selected, do the following
+    
+    // if a facility HAS been selected, do the following
     } else {
 
         // find out what facility was selected
@@ -34,7 +34,7 @@ export const FacilityInventory = () => {
                 //Find which mineralFacilityJoin objects have facilityId's equal to the facility Id on the transient state.
                 if (facilityMineral.facilityId === transientState.selectedFacility && facilityMineral.tons > 0) {
                     //if IDs match, feed data into radio button builder function
-                    return radioButtonBuilder(facilityMineral, transientState)
+                    return radioButtonBuilder(facilityMineral,transientState)
                 }
             }
         )
@@ -65,7 +65,7 @@ const findFacility = (transientStateObj) => {
 }
 
 //this function creates a radio button for each type of mineral within selected facility
-const radioButtonBuilder = (facilityMineral, transientStateObj) => {
+const radioButtonBuilder = (facilityMineral,transientStateObj) => {
     let foundMineral = findMineral(facilityMineral)
     if (facilityMineral.id === transientStateObj.selectedFacilityMineral) {
         return `<li>
@@ -83,46 +83,8 @@ document.addEventListener(
     (changeEvent) => {
         if (changeEvent.target.name === "inventory") {
             setFacilityMineral(parseInt(changeEvent.target.value))
+            const foundMineralFacilityJoin = mineralFacilityJoins.find( mineralFacility => )
         }
     }
 )
-//event listener to add selected minerals to cart 
 
-document.addEventListener(
-    "click",
-    (changeEvent) => {
-        if (changeEvent.target.name === "inventory") {
-
-        }
-    }
-)
-export const showCart = () => {
-
-    let html = `<ul class="cart-section">
-                 <li class="cart-section">`
-
-
-    let transientState = getTransientState()
-    let foundMineral = findMineral(transientState)
-    let foundFacility = findFacility(transientState)
-
-    /* for (const mineral of minerals){
-     if (mineral.id === transientState.selectedFacilityMineral) {
-         return mineral.name
-     }
- */
-if (transientState.selectedFacilityMineral === 0 || transientState.selectedFacilityMineral === undefined){
-    html += `</li> </ul>`
-}
-else {
-
-    let selectedMineral = minerals.find(mineral => mineral.id === transientState.selectedFacilityMineral)
-
-    console.log(`1 ton of ${selectedMineral.name} from ${foundFacility} `)
-    console.log(transientState)
-
-    html += `1 ton of ${selectedMineral.name} from ${foundFacility} </li> </ul>`
-}
-    return html
-
-}

@@ -13,7 +13,7 @@ document.addEventListener('change', (event) => {
 
         // check to see if govId is 0 - this means governor has been deselected.
         if (govId === 0) {
-            // reset selectedfacility to 0
+            // reset selectedfacility and selectedFacilityMineral to 0
             setFacility(0)
             setFacilityMineral(0)
         }
