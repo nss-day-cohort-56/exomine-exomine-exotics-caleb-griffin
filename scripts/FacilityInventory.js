@@ -113,7 +113,7 @@ export const showCart = () => {
     }
     else {
 
-        let selectedMineral = minerals.find(mineral => mineral.id === transientState.selectedFacilityMineral)
+        let selectedMineral = minerals.find(mineral => mineral.id === transientState.selectedMineral)
 
         console.log(`1 ton of ${selectedMineral.name} from ${foundFacility} `)
         console.log(transientState)
