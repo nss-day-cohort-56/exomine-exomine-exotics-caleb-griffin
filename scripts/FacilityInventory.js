@@ -83,8 +83,8 @@ document.addEventListener(
     (changeEvent) => {
         if (changeEvent.target.name === "inventory") {
             const foundMineralFacilityJoin = mineralFacilityJoins.find(mineralFacility => mineralFacility.id === parseInt(changeEvent.target.value))
-            setFacilityMineral(foundMineralFacilityJoin.id)
             setMineral(foundMineralFacilityJoin.mineralId)
+            setFacilityMineral(foundMineralFacilityJoin.id)
         }
     }
 )
@@ -115,7 +115,7 @@ export const showCart = () => {
 
         let selectedMineral = minerals.find(mineral => mineral.id === transientState.selectedMineral)
 
-        console.log(`1 ton of ${selectedMineral.name} from ${foundFacility} `)
+        //console.log(`1 ton of ${selectedMineral.name} from ${foundFacility} `)
         console.log(transientState)
 
         html += `1 ton of ${selectedMineral.name} from ${foundFacility} </li> </ul>`
