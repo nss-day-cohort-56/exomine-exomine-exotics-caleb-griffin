@@ -34,6 +34,7 @@ export const Exomine = () => {
         </section>
 
         <section class="cart-section">
+        <h2>Space Cart</h2>
             ${showCart()}
             <button type="button" id="purchaseButton">Purchase Mineral</button>
         </section>
