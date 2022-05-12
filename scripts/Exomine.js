@@ -3,7 +3,7 @@ import { Facilities } from "./Facilities.js"
 import { Governors } from "./Governors.js"
 import { FacilityInventory, showCart } from "./FacilityInventory.js"
 import { Minerals } from "./Minerals.js"
-import { purchaseMineral } from "./database.js"
+import { purchaseMineral, getTransientState } from "./database.js"
 
 // HTML builder function that will be imported to main.js. Put everything in containers so we can apply flexbox and structure it like the wireframe later on.
 export const Exomine = () => {
@@ -46,7 +46,12 @@ document.addEventListener(
     "click",
     (clickEvent) => {
         if (clickEvent.target.id === "purchaseButton") {
-            purchaseMineral()
+            const transState = getTransientState()
+            if (transState.selectedColony > 0 && transState.selectedGovernor > 0 && transState.selectedFacility > 0 && transState.selectedFacilityMineral > 0 && transState.selectedMineral > 0) {
+                purchaseMineral()
+            } else {
+                window.alert("Please select an option from each category")
+            }
         }
     }
 )
