@@ -44,8 +44,8 @@ document.addEventListener(
             
             
             setFacility(parseInt(changeEvent.target.value))
-            setFacilityMineral(0)
-            setMineral(0)
+            //setFacilityMineral(0)
+            //setMineral(0)
             
         }
     }

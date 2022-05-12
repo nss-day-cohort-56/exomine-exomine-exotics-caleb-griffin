@@ -108,29 +108,39 @@ document.addEventListener(
     }
 )
 
-/*
-export const showCart = () => {
+
+export const ShowCart = () => {
 
     let html = `
     <ul class="cart-section-list">
-        <li class="list-item">`
+        `
 
     let transientState = getTransientState()
 
-    if (transientState.selectedFacilityMineral === 0 || transientState.selectedFacilityMineral === undefined) {
-        html += `</li> </ul>`
+    if (transientState.orderBuilder.length === 0 ) {
+        html += ` </ul>`
     }
     else {
 
-        let foundFacility = findFacility(transientState)
-        let selectedMineral = minerals.find(mineral => mineral.id === transientState.selectedMineral)
+        /* itterate order builder array
+            for every object - use .map to create html string */
+
+            let htmlArray = transientState.orderBuilder.map( (selectedObject) => {
+                if (selectedObject.selectedMineral > 0 && selectedObject.selectedFacilityMineral > 0){
+
+                    let foundFacility = findFacility(selectedObject)
+                    let selectedMineral = minerals.find(mineral => mineral.id === selectedObject.selectedMineral)
+                    return `<li class="list-item"> 1 ton of ${selectedMineral.name} from ${foundFacility} </li>`
+                }
+            } )
+
 
         //console.log(`1 ton of ${selectedMineral.name} from ${foundFacility} `)
         console.log(transientState)
 
-        html += `1 ton of ${selectedMineral.name} from ${foundFacility} </li> </ul>`
+        html += htmlArray.join(" ")
+        html += `</ul>`
     }
     return html
 
 }
-*/
