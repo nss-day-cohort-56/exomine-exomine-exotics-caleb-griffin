@@ -1,7 +1,7 @@
 //import statements will go here
 import { Facilities } from "./Facilities.js"
 import { Governors } from "./Governors.js"
-import { FacilityInventory, showCart } from "./FacilityInventory.js"
+import { FacilityInventory } from "./FacilityInventory.js"
 import { Minerals } from "./Minerals.js"
 import { purchaseMineral, getTransientState } from "./database.js"
 
@@ -35,7 +35,8 @@ export const Exomine = () => {
 
         <section class="cart-section">
         <h2>Space Cart</h2>
-            ${showCart()}
+
+            SHOW CART FUNCTION WILL GO HERE DONT FORGET TO IMPORT IT AGAIN
             <button type="button" id="purchaseButton">Purchase Mineral</button>
         </section>
 

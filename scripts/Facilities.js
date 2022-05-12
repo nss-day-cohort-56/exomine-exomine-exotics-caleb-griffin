@@ -1,5 +1,5 @@
 // import facility data
-import { getFacilities, setFacility, getTransientState, setFacilityMineral, setMineral } from "./database.js"
+import { getFacilities, setFacility, getTransientState, setFacilityMineral, setMineral, createFacilityObject } from "./database.js"
 
 //assign facility data to a variable
 const facilities = getFacilities()
@@ -31,12 +31,22 @@ document.addEventListener(
     "change",
     (changeEvent) => {
         if (changeEvent.target.id === "facility") {
+            // check to see if object within order builder exists w/ selectedFacility === changeEventValue
+            
             const facilityId = parseInt(changeEvent.target.value)
-            const facilityName = findFacilityName(facilityId)
-            createFacilityObject(facilityName, facilityId)
+            let foundObject = findTransientStateObj(facilityId)
+            
+            if (foundObject === undefined) {
+                createFacilityObject(facilityId)
+                foundObject = findTransientStateObj(facilityId)
+            }
+
+            
+            
             setFacility(parseInt(changeEvent.target.value))
             setFacilityMineral(0)
             setMineral(0)
+            
         }
     }
 )
@@ -79,18 +89,16 @@ const htmlStringBuilder = (transientStateObj) => {
     return html
 }
 
-
+/*
 const findFacilityName = (facilityId) => {
     const facility = facilities.find(facility => facility.id === facilityId)
     return facility.name
 }
+*/
 
-const createFacilityObject = (foundFacilityName, facilityId) => {
+
+
+const findTransientStateObj = (facilityId) => {
     const transientState = getTransientState()
-    const newObject = {
-        selectedFacility: facilityId,
-        selectedFacilityMineral: 0,
-        selectedMineral: 0
-    }
-    transientState.orderBuilder.push(newObject)
+    return transientState.orderBuilder.find( obj => obj.selectedFacility === facilityId )
 }
