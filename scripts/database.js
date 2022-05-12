@@ -160,7 +160,10 @@ export const setFacility = (facilityId) => {
 }
 
 export const setFacilityMineral = (facilityMineralId) => {
-    database.transientState.selectedFacilityMineral = facilityMineralId
+    const currentFacility = database.transientState.selectedFacility
+    const currentFacilityObject = database.transientState.orderBuilder.find( 
+        obj => obj.selectedFacility === currentFacility)
+    currentFacilityObject.selectedFacilityMineral = facilityMineralId
     document.dispatchEvent(new CustomEvent("stateChanged"))
 }
 
@@ -249,7 +252,10 @@ export const setGovernor = (governorId) => {
 }
 
 export const setMineral = (mineralId) => {
-    database.transientState.selectedMineral = mineralId
+    const currentFacility = database.transientState.selectedFacility
+    const currentFacilityObject = database.transientState.orderBuilder.find( 
+        obj => obj.selectedFacility === currentFacility)
+    currentFacilityObject.selectedMineral = mineralId
     document.dispatchEvent(new CustomEvent("stateChanged"))
 }
 
@@ -259,3 +265,26 @@ export const setColony = (colonyId) => {
     document.dispatchEvent(new CustomEvent("stateChanged"))
 }
 
+export const createFacilityObject = (facilityId) => {
+    const newObject = {
+        selectedFacility: facilityId,
+        selectedFacilityMineral: 0,
+        selectedMineral: 0
+    }
+    database.transientState.orderBuilder.push(newObject)
+}
+
+/*
+so
+setter function (new)
+
+we have selected facility, we need to grab that and use it to get the right order builder object
+
+take in mineral id and facility id as parameters
+find correct object that corresopnd w/ facility value
+
+
+
+
+
+*/ 
