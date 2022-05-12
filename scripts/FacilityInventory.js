@@ -84,15 +84,6 @@ document.addEventListener(
     }
 )
 
-document.addEventListener(
-    "click",
-    (changeEvent) => {
-        if (changeEvent.target.name === "inventory") {
-
-        }
-    }
-)
-
 export const showCart = () => {
 
     let html = `<ul class="cart-section-list">
