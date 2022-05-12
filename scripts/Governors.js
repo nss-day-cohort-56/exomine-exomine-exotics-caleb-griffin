@@ -59,9 +59,9 @@ export const Governors = () => {
 const governorReset = () => {
     const transientState = getTransientState()
     transientState.orderBuilder.forEach((obj) => {
-        setFacility(obj, 0)
-        setFacilityMineral(obj, 0)
-        setMineral(obj, 0)
+        setFacility(obj,0)
+        setFacilityMineral(0)
+        setMineral(0)
     })
 }
 

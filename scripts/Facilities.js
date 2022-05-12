@@ -16,7 +16,7 @@ export const Facilities = () => {
     //invoke htmlStringBuilder function, add this to html string
     html += htmlStringBuilder(transientState)
 
-    return html    
+    return html
 }
 
 const optionHtmlBuilder = (facility, transientStateObj) => {
@@ -31,6 +31,9 @@ document.addEventListener(
     "change",
     (changeEvent) => {
         if (changeEvent.target.id === "facility") {
+            const facilityId = parseInt(changeEvent.target.value)
+            const facilityName = findFacilityName(facilityId)
+            createFacilityObject(facilityName, facilityId)
             setFacility(parseInt(changeEvent.target.value))
             setFacilityMineral(0)
             setMineral(0)
@@ -61,17 +64,33 @@ const htmlStringBuilder = (transientStateObj) => {
         //use join method to combine all strings in facilityArray into one string
         html += facilityArray.join(" ")
 
-    // If governor is NOT selected or user has de-selected a governor...
+        // If governor is NOT selected or user has de-selected a governor...
     } else {
-        
+
         //create header and base option that ARE disabled.
         html += `<select id='facility' disabled>
         <option value='0'>Select a facility</option>`
-        
+
     }
 
     // close select and section tags
     html += "</select></section>"
 
     return html
+}
+
+
+const findFacilityName = (facilityId) => {
+    const facility = facilities.find(facility => facility.id === facilityId)
+    return facility.name
+}
+
+const createFacilityObject = (foundFacilityName, facilityId) => {
+    const transientState = getTransientState()
+    const newObject = {
+        selectedFacility: facilityId,
+        selectedFacilityMineral: 0,
+        selectedMineral: 0
+    }
+    transientState.orderBuilder.push(newObject)
 }
