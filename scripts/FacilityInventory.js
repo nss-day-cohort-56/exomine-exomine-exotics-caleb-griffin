@@ -69,15 +69,29 @@ const findFacility = (transientStateObj) => {
 const radioButtonBuilder = (facilityMineral, transientStateObj) => {
     let foundMineral = findMineral(facilityMineral)
     if (facilityMineral.id === transientStateObj.selectedFacilityMineral) {
-        return `<li>
+        if (facilityMineral.tons === 1) {
+            return `<li>
+                <input type="radio" name="inventory" value="${facilityMineral.id}" checked/>${facilityMineral.tons} ton of ${foundMineral}
+            </li>`
+        }
+        else {
+            return `<li>
             <input type="radio" name="inventory" value="${facilityMineral.id}" checked/>${facilityMineral.tons} tons of ${foundMineral}
         </li>`
-    } else {
+        }
+
+    } else { if (facilityMineral.tons === 1) {
         return `<li>
-            <input type="radio" name="inventory" value="${facilityMineral.id}"/>${facilityMineral.tons} tons of ${foundMineral}
+            <input type="radio" name="inventory" value="${facilityMineral.id}" />${facilityMineral.tons} ton of ${foundMineral}
         </li>`
     }
+    else {
+        return `<li>
+        <input type="radio" name="inventory" value="${facilityMineral.id}" />${facilityMineral.tons} tons of ${foundMineral}
+    </li>`
+    } }
 }
+
 
 document.addEventListener(
     "change",
