@@ -29,7 +29,7 @@ document.addEventListener('change', (event) => {
 
 // makes and exports 'choose a governor' dropdown
 export const Governors = () => {
-    
+
     // get transient state
     let transientState = getTransientState()
 
@@ -40,18 +40,19 @@ export const Governors = () => {
         <option value="0" >Select a governor</option>`
 
 
-        governors.forEach(
-            (gov) => {
-            // checks if governor is active
-            if (gov.isActive) {
-                if (transientState.selectedGovernor > 0 && gov.id === transientState.selectedGovernor) {
-                    html += `<option value="${gov.id}" selected="selected">${gov.name}</option>`
-                } else {
-                    html += `<option value="${gov.id}" >${gov.name}</option>`
-                }
-            } 
+    const governorsArray = governors.map((gov) => {
+        // checks if governor is active
+        if (gov.isActive) {
+            if (transientState.selectedGovernor > 0 && gov.id === transientState.selectedGovernor) {
+                return `<option value="${gov.id}" selected="selected">${gov.name}</option>`
+            } else {
+                return `<option value="${gov.id}" >${gov.name}</option>`
+            }
         }
-    )
+    })
+
+    html += governorsArray.join("")
+
     // closing tag
     html += `</select></section>`
     return html

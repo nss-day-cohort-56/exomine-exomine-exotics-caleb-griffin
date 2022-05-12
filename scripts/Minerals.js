@@ -7,7 +7,7 @@ export const Minerals = () => {
     const transientState = getTransientState() // object
     const governors = getGovernors() // array
     const colonies = getColonies() // array
-    
+
     // empty string
     let html = ''
 
@@ -24,15 +24,22 @@ export const Minerals = () => {
         html += `<h2>${col.name} Minerals</h2>`
         
         // iterate joins
-        joins.forEach((join) => {
+        const joinsArray = joins.map((join) => {
             // find joins for colony
             if (join.colonyId === col.id) {
                 // find minerals for join
                 const min = minerals.find(min => min.id === join.mineralId)
                 // add amount and mineral name to html
-                html += `<p>${join.tons} tons of ${min.name}</p>`
+                if (join.tons === 1) {
+                    return `<p>${join.tons} ton of ${min.name}</p>`
+                } else {
+                    return `<p>${join.tons} tons of ${min.name}</p>`
+                }
             }
         })
+
+        html += joinsArray.join("")
+        
     }
     return html
 }
