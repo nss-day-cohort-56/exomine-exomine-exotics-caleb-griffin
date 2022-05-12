@@ -13,7 +13,9 @@ document.addEventListener('change', (event) => {
         // check to see if govId is 0 - this means governor has been deselected.
         if (govId === 0) {
             // reset selectedfacility, selectedFacilityMineral, and selected mineral to 0
-            governorReset()
+            setFacility(obj, 0)
+            setFacilityMineral(0)
+            setMineral(0)
             setGovernor(govId)
             setColony(undefined)
         } else {
@@ -55,13 +57,4 @@ export const Governors = () => {
     return html
 }
 
-// get the transient state and set order builder objects to zero
-const governorReset = () => {
-    const transientState = getTransientState()
-    transientState.orderBuilder.forEach((obj) => {
-        setFacility(obj,0)
-        setFacilityMineral(0)
-        setMineral(0)
-    })
-}
 
