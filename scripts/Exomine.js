@@ -9,7 +9,9 @@ import { purchaseMineral, getTransientState } from "./database.js"
 export const Exomine = () => {
     return `
     <header>
-        <h1>Solar System Mining Marketplace</h1>
+    <img src="/images/favpng_symbol-mining-mine-logo.png" alt="logo">
+    <h1>Solar System Mining Marketplace</h1>
+    <img src="/images/favpng_symbol-mining-mine-logo.png" alt="logo">
     </header>
 
     <section class="selection-colony-inv-flex-container">

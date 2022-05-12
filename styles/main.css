@@ -1,5 +1,6 @@
+@import url(./styling.css);
 * {
-    border: solid 1px red;
+    /* border: solid 1px red; */
 }
 
 .selection-colony-inv-flex-container {
