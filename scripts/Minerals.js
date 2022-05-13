@@ -1,44 +1,51 @@
 import { getColonies, getColonyMineralJoins, getGovernors, getMinerals, getTransientState } from "./database.js";
 
+// create HTML for Minerals section
+
 export const Minerals = () => {
-    // get minerals, joins, transientState, governers and colonies
-    const minerals = getMinerals() // array
-    const joins = getColonyMineralJoins() // array
-    const transientState = getTransientState() // object
-    const governors = getGovernors() // array
-    const colonies = getColonies() // array
+    
+    // assign getter functions to variables
 
-    // empty string
-    let html = ''
+    const minerals = getMinerals() 
+    const joins = getColonyMineralJoins() 
+    const transientState = getTransientState() 
+    const governors = getGovernors() 
+    const colonies = getColonies() 
 
-    // check status of selectedGoverner property
-    if (transientState.selectedGovernor === 0 || transientState.selectedGovernor === undefined) {
-        html += '<h2>Colony Minerals</h2>'
-    } else if (transientState.selectedGovernor > 0) {
+    let html = ''   // assign empty string to variable
 
-        // find selected governor
-        const gov = governors.find(gov => gov.id === transientState.selectedGovernor)
-        // find governor's colony
-        const col = colonies.find(col => col.id === gov.colonyId)
-        // add colony name to html
-        html += `<h2>${col.name} Minerals</h2>`
+    // if governor is not selected...
+
+    if (transientState.selectedGovernor === 0 || transientState.selectedGovernor === undefined) {  
+        html += '<h2>Colony Minerals</h2>'  // ... add this string to HTML
+
+    // otherwise...
+
+    } else if (transientState.selectedGovernor > 0) { 
+
+        const gov = governors.find(gov => gov.id === transientState.selectedGovernor) // assign selected governor to variable
+        const col = colonies.find(col => col.id === gov.colonyId) // assign selected colony to variable
         
-        // iterate joins
+        html += `<h2>${col.name} Minerals</h2>` // add this string to HTML 
+        
+        /* Use .map() to create new array of strings.
+        These strings contain the HTML that displays the minerals for each colony*/
+        
         const joinsArray = joins.map((join) => {
-            // find joins for colony
-            if (join.colonyId === col.id) {
-                // find minerals for join
-                const min = minerals.find(min => min.id === join.mineralId)
-                // add amount and mineral name to html
+            if (join.colonyId === col.id) { // if the selected colony has that mineral...
+                const min = minerals.find(min => min.id === join.mineralId) // assign mineral to a variable
+                
+                // check quantity of mineral and return string...
+                
                 if (join.tons === 1) {
-                    return `<p>${join.tons} ton of ${min.name}</p>`
+                    return `<p>${join.tons} ton of ${min.name}</p>` // ...if the quantity is 1
                 } else {
-                    return `<p>${join.tons} tons of ${min.name}</p>`
+                    return `<p>${join.tons} tons of ${min.name}</p>` // ...if the quantity is > 1
                 }
             }
         })
 
-        html += joinsArray.join("")
+        html += joinsArray.join("") // join all strings in array
         
     }
     return html
