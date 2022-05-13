@@ -1,6 +1,8 @@
+//import functions
 import { Exomine } from "./Exomine.js"
 import {getTransientState} from "./database.js"
 
+// Look out for stateChange event listener - rerender html when this event is dispatched.
 document.addEventListener(
     "stateChanged",
     (stateChanged) => {
