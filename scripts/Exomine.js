@@ -1,7 +1,7 @@
 //import statements will go here
 import { Facilities } from "./Facilities.js"
 import { Governors } from "./Governors.js"
-import { FacilityInventory, showCart } from "./FacilityInventory.js"
+import { FacilityInventory, ShowCart } from "./FacilityInventory.js"
 import { Minerals } from "./Minerals.js"
 import { purchaseMineral, getTransientState } from "./database.js"
 
@@ -35,24 +35,27 @@ export const Exomine = () => {
 
         <section class="cart-section">
         <h2>Space Cart</h2>
-            ${showCart()}
+
+            ${ShowCart()}
             <button type="button" id="purchaseButton">Purchase Mineral</button>
         </section>
 
     </section>
     `
 }
-
+// Purchase button Event Listener
 document.addEventListener(
     "click",
     (clickEvent) => {
         if (clickEvent.target.id === "purchaseButton") {
             const transState = getTransientState()
-            if (transState.selectedColony > 0 && transState.selectedGovernor > 0 && transState.selectedFacility > 0 && transState.selectedFacilityMineral > 0 && transState.selectedMineral > 0) {
-                purchaseMineral()
-            } else {
-                window.alert("Please select an option from each category")
-            }
+            transState.orderBuilder.forEach((obj) => {
+                // iterate through orderBuilder to make sure each object has a selected mineral
+                if (obj.selectedMineral > 0 && obj.selectedFacilityMineral > 0) { 
+                    purchaseMineral(obj)
+                }
+
+            })
         }
     }
 )
