@@ -276,6 +276,17 @@ export const createFacilityObject = (facilityId) => {
     database.transientState.orderBuilder.push(newObject)
 }
 
+export const resetTransientState = () => {
+
+    database.transientState = {
+        id: 0,
+        orderBuilder: [
+            
+        ]
+    }
+    document.dispatchEvent(new CustomEvent("stateChanged"))
+}
+
 /*
 so
 setter function (new)
