@@ -242,7 +242,7 @@ export const resetTransientState = () => {
 
 export const purchaseMineral = (orderObject) => {
     
-    let transientState = { ...database.transientState } - // get transient state
+    let transientState = { ...database.transientState } // get transient state
 
         //find to see if any objects in colonyMineralJoins that match colonyId and mineralId to selectedColony and selectedMineral in transient state
         let foundColonyMineralJoin = database.colonyMineralJoins.find(colonyMineral => colonyMineral.colonyId === transientState.selectedColony && colonyMineral.mineralId === orderObject.selectedMineral)

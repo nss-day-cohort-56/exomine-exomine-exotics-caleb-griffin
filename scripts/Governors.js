@@ -33,7 +33,7 @@ export const Governors = () => {
     This string contains: 
         opening section tag
         p tag for label
-        openeng select tag for dropdown list
+        opening select tag for dropdown list
         default dropdown option */
 
     let html = `<section class="governor-selection-section">
