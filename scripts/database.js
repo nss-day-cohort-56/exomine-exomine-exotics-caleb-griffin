@@ -195,7 +195,7 @@ export const getTransientState = () => {
     return {...database.transientState} 
 }
 
-export const purchaseMineral = () => {
+export const purchaseMineral = (orderObject) => {
 
     //This function will be called when purchase button is selected - event listener will be added to Exomine.js to look out for this
         // Event listener will have an if statement that makes sure that ALL NECESSARY SELECTIONS have been made prior to executing this function - otherwise, it will return an error message.
@@ -221,10 +221,10 @@ export const purchaseMineral = () => {
     */
 
     let transientState = {...database.transientState}
-    let foundColonyMineralJoin = database.colonyMineralJoins.find( colonyMineral => colonyMineral.colonyId === transientState.selectedColony && colonyMineral.mineralId === transientState.selectedMineral)
+    let foundColonyMineralJoin = database.colonyMineralJoins.find( colonyMineral => colonyMineral.colonyId === transientState.selectedColony && colonyMineral.mineralId === orderObject.selectedMineral)
     if (foundColonyMineralJoin === null || foundColonyMineralJoin === undefined) {
         const newColonyMineralObject = {
-            mineralId: transientState.selectedMineral,
+            mineralId: orderObject.selectedMineral,
             colonyId: transientState.selectedColony,
             tons: 0
         }
@@ -234,15 +234,17 @@ export const purchaseMineral = () => {
 
         database.colonyMineralJoins.push(newColonyMineralObject)
 
-        foundColonyMineralJoin = database.colonyMineralJoins.find( colonyMineral => colonyMineral.colonyId === transientState.selectedColony && colonyMineral.mineralId === transientState.selectedMineral)
+        foundColonyMineralJoin = database.colonyMineralJoins.find( colonyMineral => colonyMineral.colonyId === transientState.selectedColony && colonyMineral.mineralId === orderObject.selectedMineral)
     }
     foundColonyMineralJoin.tons += 1
-    let foundFacilityMineralJoin = database.mineralFacilityJoins.find( facilityMineral => facilityMineral.id === transientState.selectedFacilityMineral)
+    let foundFacilityMineralJoin = database.mineralFacilityJoins.find( facilityMineral => facilityMineral.id === orderObject.selectedFacilityMineral)
     foundFacilityMineralJoin.tons -= 1
 
     //database.transientState = {}
-    setFacilityMineral(0)
-    setMineral(0)
+    orderObject.selectedFacilityMineral = 0
+    orderObject.selectedMineral = 0
+    // setFacilityMineral(0)
+    // setMineral(0)
     document.dispatchEvent(new CustomEvent("stateChanged"))
 }
 
