@@ -70,9 +70,8 @@ const optionHtmlBuilder = (facility, transientStateObj) => {
 /*
 
 This event listener watches for when a facility is selected. When a facility is selected, it checks within the transient state to see if an order object exists for that 
-facility within the orderBuilder array. If that object does not already exist, it creates an object within transientState.orderBuilder that has a selectedFacility ID matching
-the facility that was selected. Then, it sets selectedFacility in the transient state object (not within the order builder object) to match the ID of the selectedFacility. If the object
-DOES already exist, it just updates the selectedFacility id in the transient state object.
+facility within the orderBuilder array. If that object does not already exist, it creates an object within the orderBuilder array with the appropriate facility ID. 
+Then, it updates transient state to keep track of the facility that is currently selected.
 
 */
 
@@ -80,15 +79,17 @@ document.addEventListener(
     "change",
     (changeEvent) => {
         if (changeEvent.target.id === "facility") {
-            // check to see if object within orderBuilder exists w/ selectedFacility value matching value of event listener target.  
+            // check to see if object within orderBuilder exists for facility that was just selected
             const facilityId = parseInt(changeEvent.target.value)
             let foundObject = findTransientStateObj(facilityId)
             
+            // if it doesn't exist, create object
             if (foundObject === undefined) {
                 createFacilityObject(facilityId)
                 foundObject = findTransientStateObj(facilityId)
             }
 
+            // update facilityID in transient state
             setFacility(parseInt(changeEvent.target.value))
         }
     }
