@@ -144,28 +144,50 @@ const database = {
             tons: 0
         }
     ],
-    transientState: 
-        {
-            id: 0,
-            orderBuilder: [
-                
-            ]
+    transientState:
+    {
+        id: 0,
+        orderBuilder: [
 
-        }
+        ]
+
+    }
 }
+
+/*-------------------Setter Functions--------------------------------------*/
 
 export const setFacility = (facilityId) => {
     database.transientState.selectedFacility = facilityId
     document.dispatchEvent(new CustomEvent("stateChanged"))
 }
 
+export const setGovernor = (governorId) => {
+    database.transientState.selectedGovernor = governorId
+    document.dispatchEvent(new CustomEvent("stateChanged"))
+}
+
+export const setColony = (colonyId) => {
+    database.transientState.selectedColony = colonyId
+    document.dispatchEvent(new CustomEvent("stateChanged"))
+}
+
 export const setFacilityMineral = (facilityMineralId) => {
     const currentFacility = database.transientState.selectedFacility
-    const currentFacilityObject = database.transientState.orderBuilder.find( 
+    const currentFacilityObject = database.transientState.orderBuilder.find(
         obj => obj.selectedFacility === currentFacility)
     currentFacilityObject.selectedFacilityMineral = facilityMineralId
     document.dispatchEvent(new CustomEvent("stateChanged"))
 }
+
+export const setMineral = (mineralId) => {
+    const currentFacility = database.transientState.selectedFacility
+    const currentFacilityObject = database.transientState.orderBuilder.find(
+        obj => obj.selectedFacility === currentFacility)
+    currentFacilityObject.selectedMineral = mineralId
+    document.dispatchEvent(new CustomEvent("stateChanged"))
+}
+
+/*--------------------Getter functions------------------*/
 
 export const getFacilities = () => {
     return database.facilities.map(f => ({ ...f }))
@@ -192,81 +214,10 @@ export const getMineralFacilityJoins = () => {
 }
 
 export const getTransientState = () => {
-    return {...database.transientState} 
+    return { ...database.transientState }
 }
 
-export const purchaseMineral = (orderObject) => {
-
-    //This function will be called when purchase button is selected - event listener will be added to Exomine.js to look out for this
-        // Event listener will have an if statement that makes sure that ALL NECESSARY SELECTIONS have been made prior to executing this function - otherwise, it will return an error message.
-    
-    /*
-    1. get transient state
-    2. use .find to see if any objects in colonyMineralJoins have matching colonyId and mineralId to selectedColony and selectedMineral in transient state - assign to a let variable
-    3. if -> new variable is undefined or null, create new object
-        4. newColonyMineralObject = {
-            mineralId: transientState.selectedMineral,
-            colonyId: transientState.selectedColony,
-            tons: 0
-        }
-        5. let lastIndex = database.colonyMineralJoins.length - 1
-        6. newColonyMineralObject.id = database.colonyMineralJoins[lastIndex].id + 1
-        7. push new object to colonyMineralJoins
-        8. run line 2 again to reassign variable 
-    9. newObjectVariable.tons += 1
-    10. use .find to find facilityMineralJoin object that has matching selectedFacilityMineral id in transient state, assign to a variable
-    11. foundFacilityMineralJoin.tons - 1
-    12. transientState (whatever its called ) = {}
-    13. trigger stateChange event
-    */
-
-    let transientState = {...database.transientState}
-    let foundColonyMineralJoin = database.colonyMineralJoins.find( colonyMineral => colonyMineral.colonyId === transientState.selectedColony && colonyMineral.mineralId === orderObject.selectedMineral)
-    if (foundColonyMineralJoin === null || foundColonyMineralJoin === undefined) {
-        const newColonyMineralObject = {
-            mineralId: orderObject.selectedMineral,
-            colonyId: transientState.selectedColony,
-            tons: 0
-        }
-
-        const lastIndex = database.colonyMineralJoins.length - 1
-        newColonyMineralObject.id = database.colonyMineralJoins[lastIndex].id + 1
-
-        database.colonyMineralJoins.push(newColonyMineralObject)
-
-        foundColonyMineralJoin = database.colonyMineralJoins.find( colonyMineral => colonyMineral.colonyId === transientState.selectedColony && colonyMineral.mineralId === orderObject.selectedMineral)
-    }
-    foundColonyMineralJoin.tons += 1
-    let foundFacilityMineralJoin = database.mineralFacilityJoins.find( facilityMineral => facilityMineral.id === orderObject.selectedFacilityMineral)
-    foundFacilityMineralJoin.tons -= 1
-
-    //database.transientState = {}
-    orderObject.selectedFacilityMineral = 0
-    orderObject.selectedMineral = 0
-    // setFacilityMineral(0)
-    // setMineral(0)
-    document.dispatchEvent(new CustomEvent("stateChanged"))
-}
-
-export const setGovernor = (governorId) => {
-    database.transientState.selectedGovernor = governorId
-    document.dispatchEvent(new CustomEvent("stateChanged"))
-}
-
-export const setMineral = (mineralId) => {
-    const currentFacility = database.transientState.selectedFacility
-    const currentFacilityObject = database.transientState.orderBuilder.find( 
-        obj => obj.selectedFacility === currentFacility)
-    currentFacilityObject.selectedMineral = mineralId
-    document.dispatchEvent(new CustomEvent("stateChanged"))
-}
-
-
-export const setColony = (colonyId) => {
-    database.transientState.selectedColony = colonyId
-    document.dispatchEvent(new CustomEvent("stateChanged"))
-}
-
+// create new object for selected facility and add it to transientState
 export const createFacilityObject = (facilityId) => {
     const newObject = {
         selectedFacility: facilityId,
@@ -276,28 +227,52 @@ export const createFacilityObject = (facilityId) => {
     database.transientState.orderBuilder.push(newObject)
 }
 
+// function to reset transientState if new Gov. is chosen or purchase made
 export const resetTransientState = () => {
 
     database.transientState = {
         id: 0,
         orderBuilder: [
-            
+
         ]
     }
     document.dispatchEvent(new CustomEvent("stateChanged"))
 }
 
-/*
-so
-setter function (new)
 
-we have selected facility, we need to grab that and use it to get the right order builder object
+export const purchaseMineral = (orderObject) => {
+    
+    let transientState = { ...database.transientState } - // get transient state
 
-take in mineral id and facility id as parameters
-find correct object that corresopnd w/ facility value
+        //find to see if any objects in colonyMineralJoins that match colonyId and mineralId to selectedColony and selectedMineral in transient state
+        let foundColonyMineralJoin = database.colonyMineralJoins.find(colonyMineral => colonyMineral.colonyId === transientState.selectedColony && colonyMineral.mineralId === orderObject.selectedMineral)
+    
+        // if new variable is undefined or null, create new object
+        if (foundColonyMineralJoin === null || foundColonyMineralJoin === undefined) { 
+        const newColonyMineralObject = {
+            mineralId: orderObject.selectedMineral,
+            colonyId: transientState.selectedColony,
+            tons: 0
+        }
 
+        // create new object ID
+        const lastIndex = database.colonyMineralJoins.length - 1
+        newColonyMineralObject.id = database.colonyMineralJoins[lastIndex].id + 1
 
+        //push new object to colonyMineralJoins
+        database.colonyMineralJoins.push(newColonyMineralObject)
 
+        // re-assign variable
+        foundColonyMineralJoin = database.colonyMineralJoins.find(colonyMineral => colonyMineral.colonyId === transientState.selectedColony && colonyMineral.mineralId === orderObject.selectedMineral)
+    }
 
+    // add/subtract minerals to/from corresponding inventory
+    foundColonyMineralJoin.tons += 1
+    let foundFacilityMineralJoin = database.mineralFacilityJoins.find(facilityMineral => facilityMineral.id === orderObject.selectedFacilityMineral)
+    foundFacilityMineralJoin.tons -= 1
 
-*/ 
+    //reset selected minerals back to 0 after purchase
+    orderObject.selectedFacilityMineral = 0
+    orderObject.selectedMineral = 0
+    document.dispatchEvent(new CustomEvent("stateChanged"))
+}

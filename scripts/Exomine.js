@@ -43,14 +43,15 @@ export const Exomine = () => {
     </section>
     `
 }
-
+// Purchase button Event Listener
 document.addEventListener(
     "click",
     (clickEvent) => {
         if (clickEvent.target.id === "purchaseButton") {
             const transState = getTransientState()
             transState.orderBuilder.forEach((obj) => {
-                if (obj.selectedMineral > 0 && obj.selectedFacilityMineral > 0) {
+                // iterate through orderBuilder to make sure each object has a selected mineral
+                if (obj.selectedMineral > 0 && obj.selectedFacilityMineral > 0) { 
                     purchaseMineral(obj)
                 }
 
@@ -58,34 +59,3 @@ document.addEventListener(
         }
     }
 )
-
-
-
-
-
-
-
-    // const foundObject = transState.orderBuilder.find(obj => obj.selectedMineral > 0 && obj.selectedFacilityMineral > 0)
-    // if (foundObject !== undefined) {
-    //     purchaseMineral()
-    // } else {
-    //     window.alert("Please select an option from each category")
-    // }
-
-
-    // if (transState.selectedColony > 0 && transState.selectedGovernor > 0 && transState.selectedFacility > 0 && transState.selectedFacilityMineral > 0 && transState.selectedMineral > 0) {
-    //     purchaseMineral()
-    // } else {
-    //     window.alert("Please select an option from each category")
-    // }
-
-/* 
-
-foundObject = transState.orderB.find('object that has mineral & facilityMineral greater than 0')
-
-if (typeof foundObject === 'object') {
-    run the purchase mineral function
-}
-
-
-*/
