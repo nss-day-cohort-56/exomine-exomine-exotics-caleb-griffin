@@ -1,5 +1,5 @@
 // import facility data
-import { getFacilities, setFacility, getTransientState, setFacilityMineral, setMineral, createFacilityObject } from "./database.js"
+import { getFacilities, setFacility, getTransientState, createFacilityObject } from "./database.js"
 
 //assign facility data to a variable
 const facilities = getFacilities()
@@ -18,38 +18,6 @@ export const Facilities = () => {
 
     return html
 }
-
-const optionHtmlBuilder = (facility, transientStateObj) => {
-    if (facility.id === transientStateObj.selectedFacility) {
-        return `<option value="${facility.id}" selected>${facility.name}</option>`
-    } else {
-        return `<option value="${facility.id}">${facility.name}</option>`
-    }
-}
-
-document.addEventListener(
-    "change",
-    (changeEvent) => {
-        if (changeEvent.target.id === "facility") {
-            // check to see if object within order builder exists w/ selectedFacility === changeEventValue
-            
-            const facilityId = parseInt(changeEvent.target.value)
-            let foundObject = findTransientStateObj(facilityId)
-            
-            if (foundObject === undefined) {
-                createFacilityObject(facilityId)
-                foundObject = findTransientStateObj(facilityId)
-            }
-
-            
-            
-            setFacility(parseInt(changeEvent.target.value))
-            //setFacilityMineral(0)
-            //setMineral(0)
-            
-        }
-    }
-)
 
 const htmlStringBuilder = (transientStateObj) => {
     //create empty html string
@@ -89,15 +57,44 @@ const htmlStringBuilder = (transientStateObj) => {
     return html
 }
 
-/*
-const findFacilityName = (facilityId) => {
-    const facility = facilities.find(facility => facility.id === facilityId)
-    return facility.name
+// This function creates facility dropdown options, gets called within htmlStringBuilder function
+const optionHtmlBuilder = (facility, transientStateObj) => {
+    if (facility.id === transientStateObj.selectedFacility) {
+        return `<option value="${facility.id}" selected>${facility.name}</option>`
+    } else {
+        return `<option value="${facility.id}">${facility.name}</option>`
+    }
 }
+
+
+/*
+
+This event listener watches for when a facility is selected. When a facility is selected, it checks within the transient state to see if an order object exists for that 
+facility within the orderBuilder array. If that object does not already exist, it creates an object within transientState.orderBuilder that has a selectedFacility ID matching
+the facility that was selected. Then, it sets selectedFacility in the transient state object (not within the order builder object) to match the ID of the selectedFacility. If the object
+DOES already exist, it just updates the selectedFacility id in the transient state object.
+
 */
 
+document.addEventListener(
+    "change",
+    (changeEvent) => {
+        if (changeEvent.target.id === "facility") {
+            // check to see if object within orderBuilder exists w/ selectedFacility value matching value of event listener target.  
+            const facilityId = parseInt(changeEvent.target.value)
+            let foundObject = findTransientStateObj(facilityId)
+            
+            if (foundObject === undefined) {
+                createFacilityObject(facilityId)
+                foundObject = findTransientStateObj(facilityId)
+            }
 
+            setFacility(parseInt(changeEvent.target.value))
+        }
+    }
+)
 
+//Finder function to grab the order builder object with a facility ID that matches the facility ID that was just selected by the user. Function called within event listener.
 const findTransientStateObj = (facilityId) => {
     const transientState = getTransientState()
     return transientState.orderBuilder.find( obj => obj.selectedFacility === facilityId )
